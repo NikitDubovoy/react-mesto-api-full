@@ -19,8 +19,8 @@ app.use(cors({
   origin: [
     'http://localhost:3000',
     'https://localhost:3000',
-    'http://mesto-frontend.nomoredomains.icu/',
-    'https://mesto-frontend.nomoredomains.icu/',
+    'http://mesto-frontend.nomoredomains.icu',
+    'https://mesto-frontend.nomoredomains.icu',
   ],
   credentials: true,
 }));
