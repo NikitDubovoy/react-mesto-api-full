@@ -61,21 +61,7 @@ function App() {
     setIsAddPlacePopupOpen(false);
     setIsEditProfilePopupOpen(false);
     setIsInfoTooltip(false);
-  }
-  function handleSubmitSignIn(e) {
-    e.preventDefault();
-
-    Auth.authorize(email, password)
-      .then((data) => {
-        if (data.token) {
-          handleLoggedIn();
-          tokenCheck();
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
+  } 
 
   React.useEffect(() => {
     if (Object.keys(currentUser).length) {
@@ -83,6 +69,30 @@ function App() {
       setEmail(currentUser.email);
     }
   }, [currentUser]);
+
+  function handleSubmitSignIn(e) {
+    e.preventDefault();
+    Auth.authorize(email, password)
+      .then((data) => {
+        handleLoggedIn();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  React.useEffect(() => {
+    if(loggedIn){
+    api.getUser()
+      .then((user) => {
+        setCurrentUser(user)
+        history.push("/");
+        setLoggedIn(true);
+        setEmailUser(user.email);
+      })
+      .catch((err) => console.log(err))
+    }
+  }, [history, loggedIn]);
 
   function handleEmailChange(e) {
     setEmail(e.target.value);
@@ -97,7 +107,6 @@ function App() {
     Auth.register(password, email)
       .then((res) => {
         if (res) {
-          localStorage.getItem("user");
           history.push("/sign-in");
           handleSetIsInfoTooltip();
           setStatusInfoTooltip(true);
@@ -111,27 +120,9 @@ function App() {
       });
   }
 
-  function tokenCheck() {
-    const token = localStorage.getItem("token");
-    if (token != undefined) {
-      Auth.getContent(token)
-        .then((res) => {
-          if (res) {
-            setEmailUser(res.data.email);
-            setLoggedIn(true);
-            history.push("/");
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
-  }
-
   function handleSignOut() {
-    setEmailUser("");
-    localStorage.removeItem("token");
-    history.push("/sign-in");
+    api.logout()
+    .then(() => setLoggedIn(false))
   }
 
   function handleUpdateUser(user) {
@@ -156,19 +147,10 @@ function App() {
         console.log(err);
       });
   }
-  React.useEffect(() => {
-    api
-      .getUser()
-      .then((currentUser) => {
-        setCurrentUser(currentUser);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
 
   React.useEffect(() => {
-    api
+    if(loggedIn) {
+      api
       .getInitialCards()
       .then((cards) => {
         setCards(cards);
@@ -176,10 +158,11 @@ function App() {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+    }
+  }, [loggedIn]);
 
   function handleCardLike(card) {
-    const isLiked = card.likes.some((i) => i._id === currentUser._id);
+    const isLiked = card.likes.some((i) => i === currentUser._id);
 
     api
       .changeLikeCardStatus(card._id, !isLiked)

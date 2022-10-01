@@ -3,13 +3,13 @@ import { UserContext } from "../contexts/CurrentUserContext";
 
 function Card(props) {
   const user = React.useContext(UserContext);
-  const isOwn = props.card.owner._id === user._id;
+  const isOwn = props.card.owner === user._id;
 
   const itemsTrash = `items__trash ${
     isOwn ? "items__trash" : "items__trash_no-visible"
   }`;
 
-  const isLiked = props.card.likes.some((i) => i._id === user._id);
+  const isLiked = props.card.likes.some((i) => i === user._id);
 
   const cardLikeButtonClassName = `items__like-button ${
     isLiked ? "items__like-button_active" : "items__like-button"

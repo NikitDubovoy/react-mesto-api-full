@@ -9,9 +9,6 @@ const IsServerError = require('../errors/IsServerError');
 const IsEmail = require('../errors/IsEmail');
 const InvalidData = require('../errors/InvalidData');
 
-// eslint-disable-next-line max-len
-// const isAvatarValidator = (avatar) => /https?:\/\/(?:[-\w]+\.)?([-\w]+)\.\w+(?:\.\w+)?\/?.*/i.test(avatar);
-
 const createdUser = (req, res, next) => {
   const {
     name, about, avatar, email, password,
@@ -129,11 +126,11 @@ const login = (req, res, next) => {
               _id: user._id,
             }, NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret');
             res.cookie('jwt', token, {
-              maxAge: 604800,
+              maxAge: 6048000,
               httpOnly: true,
               sameSite: true,
             });
-            res.status(200).send(user);
+            res.status(200).send({ data: user.toJSON() });
           } else {
             next(new InvalidData('Неверные данные'));
           }
@@ -141,6 +138,11 @@ const login = (req, res, next) => {
         .catch(next);
     })
     .catch(next);
+};
+
+const logout = (req, res, next) => {
+  res.clearCookie('jwt').send({ message: 'Успешный выход' });
+  next();
 };
 
 module.exports = {
@@ -151,17 +153,5 @@ module.exports = {
   updateUser,
   login,
   getThisUser,
+  logout,
 };
-
-/* bcrypt.compare(password, user.password)
-.then((isUserValid) => {
-  if (isUserValid) {
-    const token = jwt.sign({
-      _id: user._id,
-    }, 'some-secret-key');
-    res.cookie('jwt', token, {
-      maxAge: 604800,
-      httpOnly: true,
-      sameSite: true,
-    });
-    res.status(200).send(user); */

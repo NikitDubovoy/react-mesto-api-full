@@ -5,9 +5,11 @@ Joi.objectId = require('joi-objectid')(Joi);
 const router = express.Router();
 const {
   getUsers, getUserId, updateUser, updateAvatar, getThisUser,
+  logout,
 } = require('../controllers/users');
 
 router.get('/me', express.json(), getThisUser);
+router.post('/logout', express.json(), logout);
 router.get('/', express.json(), getUsers);
 router.get('/:userId', express.json(), celebrate({
   params: Joi.object().keys({

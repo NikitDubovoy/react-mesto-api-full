@@ -17,8 +17,8 @@ class Api {
 
   getInitialCards() {
     return fetch(`${this._url}/cards`, {
+      credentials: 'include',
       headers: {
-        authorization: this._token,
         "Content-Type": "application/json",
       },
     }).then((res) => {
@@ -32,8 +32,8 @@ class Api {
     };
     return fetch(`${this._url}/cards`, {
       method: "POST",
+      credentials: 'include',
       headers: {
-        authorization: this._token,
         "Content-Type": "application/json",
       },
       body: JSON.stringify(body),
@@ -45,8 +45,8 @@ class Api {
   deletedCard(cardId) {
     return fetch(`${this._url}/cards/${cardId}`, {
       method: "DELETE",
+      credentials: 'include',
       headers: {
-        authorization: this._token,
         "Content-Type": "application/json",
       },
     });
@@ -55,8 +55,8 @@ class Api {
     if (isLiked) {
       return fetch(`${this._url}/cards/${cardId}/likes`, {
         method: "PUT",
+        credentials: 'include',
         headers: {
-          authorization: this._token,
           "Content-Type": "application/json",
         },
       }).then((res) => {
@@ -65,8 +65,8 @@ class Api {
     } else {
       return fetch(`${this._url}/cards/${cardId}/likes`, {
         method: "DELETE",
+        credentials: 'include',
         headers: {
-          authorization: this._token,
           "Content-Type": "application/json",
         },
       }).then((res) => {
@@ -77,8 +77,8 @@ class Api {
 
   getUser() {
     return fetch(`${this._url}/users/me`, {
+      credentials: 'include',
       headers: {
-        authorization: this._token,
         "Content-Type": "application/json",
       },
     }).then((res) => {
@@ -92,9 +92,9 @@ class Api {
     };
     return fetch(`${this._url}/users/me`, {
       method: "PATCH",
+      credentials: 'include',
       headers: {
-        authorization: this._token,
-        "Content-Type": "application/json",
+        "Content-Type": "application/json",     
       },
       body: JSON.stringify(body),
     }).then((res) => {
@@ -108,8 +108,8 @@ class Api {
     };
     return fetch(`${this._url}/users/me/avatar`, {
       method: "PATCH",
+      credentials: 'include',
       headers: {
-        authorization: this._token,
         "Content-Type": "application/json",
       },
       body: JSON.stringify(body),
@@ -117,10 +117,21 @@ class Api {
       return res.json();
     });
   }
+  logout() {
+    return fetch(`${this._url}/users/logout`, {
+      method: "POST",
+      credentials: 'include',
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+  }
 }
 
+
+
 const api = new Api(
-  "https://api.mesto-frontend.nomore.nomoredomains.icu",
+  "http://localhost:3001",
 );
 
 export default api;

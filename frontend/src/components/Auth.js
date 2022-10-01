@@ -1,4 +1,4 @@
-export const BASE_URL = "https://auth.nomoreparties.co";
+export const BASE_URL = "http://localhost:3001";
 
 function getResponseData(data) {
   if (data.ok) {
@@ -14,9 +14,9 @@ export const register = (password, email) => {
       Accept: "application/json",
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ password, email }),
+    body: JSON.stringify({ email, password }),
   }).then((response) => {
-    if (response.status === 201) {
+    if (response.status === 200) {
       localStorage.setItem("user", response);
       return getResponseData(response);
     }
@@ -26,34 +26,33 @@ export const register = (password, email) => {
 export const authorize = (email, password) => {
   return fetch(`${BASE_URL}/signin`, {
     method: "POST",
+    credentials: 'include',
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
     },
     body: JSON.stringify({ email, password }),
-  })
+  })   
+    .then((data) => {
+    if (data) {
+      return data;
+    }
+    })
     .then((response) => {
       return getResponseData(response);
     })
-    .then((data) => {
-      if (data.token) {
-        localStorage.setItem("token", data.token);
-        return data;
-      }
-    });
 };
 
-export const getContent = (token) => {
+export const getContent = () => {
   return fetch(`${BASE_URL}/users/me`, {
     method: "GET",
+    credentials: 'include',
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
     },
   })
     .then((res) => {
       return getResponseData(res);
     })
-    .then((data) => data);
 };
