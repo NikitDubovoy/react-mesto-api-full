@@ -1,0 +1,9 @@
+.sign-up__input {
+    width: 100%;
+    background-color: #000;
+    border: none;
+    border-bottom: 2px solid #CCCCCC;
+    height: 27px;
+    margin-bottom: 30px;
+    color: #CCCCCC;
+}

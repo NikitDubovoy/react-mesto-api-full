@@ -1,0 +1,20 @@
+.items {
+    max-width: 880px;
+    margin: auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px 17px;
+    justify-content: center;
+    color: #000;
+}
+
+.items:last-child{
+    justify-content: start; 
+}
+
+@media screen and (max-width: 730px){
+    .items{
+        flex-direction: column;
+        align-content: center;
+    }
+}

@@ -1,0 +1,9 @@
+.sign-up__link {
+    color: #fff;
+    text-decoration: none;
+}
+
+.sign-up__link:hover {
+    color: #fff;
+    text-decoration: underline;
+}

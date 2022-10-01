@@ -1,0 +1,4 @@
+.items__trash_no-visible {
+    display: none;
+    cursor: default;
+}

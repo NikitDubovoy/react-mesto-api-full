@@ -1,0 +1,20 @@
+.profile__avatar {
+    background-image: url(../../../images/icons/EditButton.svg);
+    border-radius: 50%;
+    grid-area: avatar;
+    object-fit: cover;
+    max-width: 120px;
+    max-height: 120px;
+    z-index: 1;
+    cursor: pointer;
+    background-position: 50%;
+    background-size: 26px;
+    background-repeat: no-repeat;
+
+}
+@media screen and (max-width: 730px){
+    .profile__avatar{
+        margin-bottom: 27px;
+    }
+}
+

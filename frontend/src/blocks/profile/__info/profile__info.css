@@ -1,0 +1,22 @@
+.profile__info{
+    display: grid;
+    width: auto;
+    grid-template-areas: 
+    "avatar user-name edit-button"
+    "avatar description description";
+    grid-template-columns: 151px max-content 1fr;
+    grid-template-rows: 71px 1fr;
+
+}
+
+@media screen and (max-width: 730px){
+   .profile__info{
+        grid-template-columns: max-content;
+        grid-template-rows: repeat(3, auto);
+        grid-template-areas: 
+        "avatar avatar"
+        "user-name edit-button"
+        "description description";
+        justify-items: center;
+    }
+}

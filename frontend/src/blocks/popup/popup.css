@@ -1,0 +1,21 @@
+.popup {
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    visibility: hidden;
+    z-index: 2;
+    opacity: 0;
+    transition: visibility 0.4s, opacity 0.4s linear;
+}
+
+@media screen and (max-width: 485px){
+    .popup{
+        align-items: flex-start;
+    }
+}
