@@ -1,4 +1,5 @@
 export const BASE_URL = "https://api.mesto-frontend.nomore.nomoredomains.icu";
+//export const BASE_URL = "http://localhost:3001";
 
 function getResponseData(data) {
   if (data.ok) {

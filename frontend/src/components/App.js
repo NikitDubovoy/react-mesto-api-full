@@ -14,6 +14,7 @@ import AddPlacePopup from "./AddPlacePopup";
 import Login from "./Login";
 import Register from "./Register";
 import InfoTooltip from "./InfoTooltip";
+import SignFaild from "./SignFaild";
 import * as Auth from "./Auth";
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] =
     React.useState(false);
   const [isInfoTooltip, setIsInfoTooltip] = React.useState(false);
+  const [isSignFaild, setIsSignFaild] = React.useState(false);
   const [statusInfoTooltip, setStatusInfoTooltip] = React.useState(false);
   const [selectedCard, setSelectedCard] = React.useState(null);
   const [currentUser, setCurrentUser] = React.useState({});
@@ -55,12 +57,18 @@ function App() {
     setIsInfoTooltip(!isInfoTooltip);
   }
 
+  function handlesetSetIsSignFaild() {
+    setIsSignFaild(!isSignFaild);
+  }
+
+
   function closeAllPopups() {
     setSelectedCard(null);
     setIsEditAvatarPopupOpen(false);
     setIsAddPlacePopupOpen(false);
     setIsEditProfilePopupOpen(false);
     setIsInfoTooltip(false);
+    setIsSignFaild(false);
   } 
 
   React.useEffect(() => {
@@ -74,10 +82,10 @@ function App() {
     e.preventDefault();
     Auth.authorize(email, password)
       .then((data) => {
-        handleLoggedIn();
+          handleLoggedIn();
       })
       .catch((err) => {
-        console.log(err);
+        handlesetSetIsSignFaild();
       });
   }
 
@@ -266,6 +274,10 @@ function App() {
         <InfoTooltip
           status={statusInfoTooltip}
           isOpen={isInfoTooltip}
+          onOpen={closeAllPopups}
+        />
+        <SignFaild
+          isOpen={isSignFaild}
           onOpen={closeAllPopups}
         />
       </div>

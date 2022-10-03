@@ -132,6 +132,7 @@ class Api {
 
 const api = new Api(
   "https://api.mesto-frontend.nomore.nomoredomains.icu",
+  //"http://localhost:3001"
 );
 
 export default api;

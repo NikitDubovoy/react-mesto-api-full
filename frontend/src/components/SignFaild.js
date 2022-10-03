@@ -1,7 +1,6 @@
-import Success from "../images/icons/success.svg";
 import Faild from "../images/icons/Union.svg";
 
-function InfoTooltip(props) {
+function SignFaild(props) {
   return (
     <div
       className={
@@ -18,16 +17,14 @@ function InfoTooltip(props) {
         ></button>
         <img
           className="popup_img-result"
-          src={props.status ? Success : Faild}
+          src={Faild}
         />
         <h2 className="popup__title">
-          {props.status
-            ? "Вы успешно зарегистрировались!"
-            : "Что-то пошло не так! Попробуйте ещё раз."}
+          {"Неверый логин или пароль."}
         </h2>
       </div>
     </div>
   );
 }
 
-export default InfoTooltip;
+export default SignFaild;
