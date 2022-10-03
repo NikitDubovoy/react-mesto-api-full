@@ -130,7 +130,10 @@ function App() {
 
   function handleSignOut() {
     api.logout()
-    .then(() => setLoggedIn(false))
+    .then(() => {
+      setLoggedIn(false);
+      setCurrentUser({})
+    })
   }
 
   function handleUpdateUser(user) {
@@ -210,7 +213,10 @@ function App() {
   return (
     <UserContext.Provider value={currentUser}>
       <div className="page">
-        <Header signOut={handleSignOut} userEmail={emailUser} />
+        <Header 
+        signOut={handleSignOut}
+        userEmail={emailUser}
+        />
         <Switch>
           <Route path="/sign-in">
             <Login
