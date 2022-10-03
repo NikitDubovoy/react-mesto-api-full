@@ -131,9 +131,14 @@ function App() {
   function handleSignOut() {
     api.logout()
     .then(() => {
-      setLoggedIn(false);
-      setCurrentUser({})
+      handleLoggedIn()
+      //setLoggedIn(false);
+      setCurrentUser({});
+      setEmailUser(null);
     })
+    .catch((err) => {
+      console.log(err);
+    });
   }
 
   function handleUpdateUser(user) {
